@@ -1,9 +1,9 @@
 from typing import Optional
 from uuid import UUID
-
 from pydantic import BaseModel, ConfigDict
 
 
+# ---------- Sources ----------
 class SourceCreate(BaseModel):
     type: str  # "site" / "tg"
     name: str
@@ -26,3 +26,15 @@ class SourceRead(BaseModel):
     name: str
     url: str
     enabled: bool
+
+
+# ---------- Keywords ----------
+class KeywordCreate(BaseModel):
+    word: str
+
+
+class KeywordRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: UUID
+    word: str
