@@ -1,11 +1,10 @@
-from sqlmodel import SQLModel, create_engine
+from sqlmodel import create_engine
+from app.core.config import settings
 
-DATABASE_URL = 'sqlite:///.autogram.db'
+connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
 
 engine = create_engine(
-    DATABASE_URL,
-    echo=True,
-    connect_args={
-        'check_same_thread': False
-    },
+    settings.DATABASE_URL,
+    echo=settings.DB_ECHO,
+    connect_args=connect_args,
 )
