@@ -18,3 +18,9 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+*.session
+*.session-journal
+autogram.db
+
+tg_login
