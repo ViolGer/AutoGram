@@ -65,5 +65,13 @@ class NewItemRead(SQLModel):
 
 
 
+class PostRead(SQLModel):
+    id: uuid.UUID
+    news_id: uuid.UUID
+    generated_text: str
+    published_at: datetime
+    status: str
+
+
 class NewItemKeywordsUpdate(SQLModel):
     keywords: list[str] = []
