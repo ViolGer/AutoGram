@@ -1,6 +1,7 @@
-from typing import Optional
+import uuid
+from typing import Optional, List
+from pydantic import BaseModel, Field, ConfigDict
 from uuid import UUID
-from pydantic import BaseModel, ConfigDict
 
 
 # ---------- Sources ----------
@@ -38,3 +39,32 @@ class KeywordRead(BaseModel):
 
     id: UUID
     word: str
+
+
+class PostGenerateBatchRequest(BaseModel):
+    query_text: Optional[str] = None
+    source_name: Optional[str] = None
+    keywords: list[str] = [Field(default_factory=list)]
+    match_all: bool = False
+
+    # поведение batch
+    limit: int = 20
+    skip_existing: bool = True
+    force: bool = False
+    dry_run: bool = False
+
+
+class PostGenerateBatchItem(BaseModel):
+    news_id: uuid.UUID
+    post_id: Optional[uuid.UUID] = None
+    status: str
+    generated_text: Optional[str] = None
+    error: Optional[str] = None
+
+
+class PostGenerateBatchResponse(BaseModel):
+    selected: int
+    generated: int
+    skipped: int
+    errors: int
+    items: list[PostGenerateBatchItem] = [Field(default_factory=list)]
