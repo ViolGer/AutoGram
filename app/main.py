@@ -1,16 +1,22 @@
-# This is a sample Python script.
+from contextlib import asynccontextmanager
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from fastapi import FastAPI
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from app.api.router import api_router
+from app.db.base import create_db_and_tables
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+app = FastAPI(title="AutoGram", version="0.0.1", lifespan=lifespan)
+
+app.include_router(api_router)
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

@@ -1,0 +1,44 @@
+# ---------------------------
+# Python
+# ---------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.uv/
+
+# ---------------------------
+# IDE / Editors
+# ---------------------------
+.idea/
+.vscode/
+*.iml
+
+# ---------------------------
+# Environment / secrets
+# ---------------------------
+.env
+
+# ---------------------------
+# OS
+# ---------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------
+# Data (local runtime artifacts)
+# ---------------------------
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.session
+*.session-journal
+
+# Celery beat schedule state (local)
+celerybeat-schedule*
+
+# ---------------------------
+# Optional: local scripts / scratch
+# ---------------------------
+tg_login
